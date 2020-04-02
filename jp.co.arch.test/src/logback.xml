@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<property name="LOG_HOME" value="c:/primex/logs/api" />
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoding>UTF-8</encoding>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{50},[%X{terminalId}] [%X{terminalName}] - %msg%n</pattern>
+		</layout>
+	</appender>
+
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<encoding>UTF-8</encoding>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/app_%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>[%date{yyyy-MM-dd HH:mm:ss.SSS}] [%-5level] [%X{requestTime}] [%logger:%line] [%X{terminalId}] [%X{terminalName}] %msg%n</pattern>
+		</layout>
+	</appender>
+
+	<appender name="WARN_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<encoding>UTF-8</encoding>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${LOG_HOME}/warn.%d{yyyy-MM-dd}.log
+			</FileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<layout>
+			<pattern>[%date{yyyy-MM-dd HH:mm:ss.SSS}] [%-5level] [%X{requestTime}] [%logger:%line] [%X{terminalId}] [%X{terminalName}] %msg%n</pattern>
+		</layout>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>WARN</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+
+	<appender name="DEBUG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<encoding>UTF-8</encoding>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${LOG_HOME}/debug.%d{yyyy-MM-dd}.log
+			</FileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<layout>
+			<pattern>[%date{yyyy-MM-dd HH:mm:ss.SSS}] [%-5level] [%X{requestTime}] [%logger:%line] [%X{terminalId}] [%X{terminalName}] %msg%n</pattern>
+		</layout>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>DEBUG</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+
+	<appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<encoding>UTF-8</encoding>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${LOG_HOME}/error.%d{yyyy-MM-dd}.log
+			</FileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<layout>
+			<pattern>[%date{yyyy-MM-dd HH:mm:ss.SSS}] [%-5level] [%X{requestTime}] [%logger:%line] [%X{terminalId}] [%X{terminalName}] %msg%n</pattern>
+		</layout>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+
+	<appender name="INFO_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<encoding>UTF-8</encoding>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${LOG_HOME}/info.%d{yyyy-MM-dd}.log
+			</FileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<layout>
+			<pattern>[%date{yyyy-MM-dd HH:mm:ss.SSS}] [%-5level] [%X{requestTime}] [%logger:%line] [%X{terminalId}] [%X{terminalName}] %msg%n</pattern>
+		</layout>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+
+	<root level="DEBUG">
+		<!-- <appender-ref ref="STDOUT" /> -->
+		<appender-ref ref="FILE" />
+		<appender-ref ref="WARN_FILE" />
+		<appender-ref ref="DEBUG_FILE" />
+		<appender-ref ref="INFO_FILE" />
+		<appender-ref ref="ERROR_FILE" />
+
+	</root>
+
+</configuration>

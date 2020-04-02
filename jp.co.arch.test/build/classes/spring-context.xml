@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+
+	<bean id="configProperties"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="locations">
+			<list>
+				<value>classpath:database.properties</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+		<property name="properties" ref="configProperties" />
+	</bean>
+	<util:properties id="config" location="classpath:resources/clientLog.properties"/>
+
+	<context:component-scan base-package="jp.co.archTest.rest.ps" />
+	
+	<bean id="persistenceExceptionTranslationPostProcessor"
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+	<bean id="hibernateJpaVendorAdapter"
+		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+
+	<bean id="dataSourcePRIMEX" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="${jdbc.driverClassName}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="user" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="minPoolSize" value="${jdbc.minPoolSize}"></property>
+		<property name="maxPoolSize" value="${jdbc.maxPoolSize}"></property>
+		<property name="maxIdleTime" value="${jdbc.maxIdleTime}"></property>
+	</bean>
+	
+	<bean id="entityManagerFactoryPRIMEX"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSourcePRIMEX" />
+		<property name="packagesToScan" value="jp.co.archTest.rest.ps.v1" />
+		<property name="persistenceProvider">
+			<bean class="org.hibernate.ejb.HibernatePersistence" />
+		</property>
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="generateDdl" value="false" />
+				<property name="database" value="SQL_SERVER" />
+				<property name="databasePlatform" value="${hibernate.dialect}" />
+<!-- 				<property name="showSql" value="${hibernate.show_sql}" /> -->
+			</bean>
+		</property>
+		<property name="jpaDialect">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
+		</property>
+		<property name="jpaPropertyMap">
+			<map>
+				<entry key="hibernate.ejb.naming_strategy" value="${hibernate.naming_strategy}" />
+				<entry key="hibernate.format_sql" value="${hibernate.format_sql}" />
+				<entry key="hibernate.jdbc.batch_size" value="${hibernate.jdbc.batch_size}" />
+				<entry key="hibernate.hibernate.connection.SetBigStringTryClob"
+					value="${hibernate.hibernate.connection.SetBigStringTryClob}" />
+				<entry key="hibernate.hibernate.archive.autodetection" value="${hibernate.hibernate.archive.autodetection}" />
+				<entry key="hibernate.hibernate.connection.charSet" value="${hibernate.hibernate.connection.charSet}" />
+				<entry key="hibernate.hibernate.cache.use_query_cache" value="${hibernate.hibernate.cache.use_query_cache}" />
+				<entry key="hibernate.hibernate.cache.use_second_level_cache"
+					value="${hibernate.hibernate.cache.use_second_level_cache}" />
+			</map>
+		</property>
+	</bean>
+
+	<jpa:repositories base-package="jp.co.archTest.rest.ps.v1.dao"
+		transaction-manager-ref="transactionManager"
+		entity-manager-factory-ref="entityManagerFactoryPRIMEX"  />	
+		
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactoryPRIMEX" />
+	</bean>
+	
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+
+	<tx:annotation-driven transaction-manager="transactionManager"
+		proxy-target-class="true" />
+	
+	<bean id="dataSourcePRIMEX2" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="${jdbc2.driverClassName}" />
+		<property name="jdbcUrl" value="${jdbc2.url}" />
+		<property name="user" value="${jdbc2.username}" />
+		<property name="password" value="${jdbc2.password}" />
+		<property name="minPoolSize" value="${jdbc.minPoolSize}"></property>
+		<property name="maxPoolSize" value="${jdbc.maxPoolSize}"></property>
+		<property name="maxIdleTime" value="${jdbc.maxIdleTime}"></property>
+	</bean>
+	
+	<bean id="entityManagerFactoryPRIMEX2"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSourcePRIMEX2" />
+		<property name="packagesToScan" value="jp.co.archTest.rest.ps.v1" />
+		<property name="persistenceProvider">
+			<bean class="org.hibernate.ejb.HibernatePersistence" />
+		</property>
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="generateDdl" value="false" />
+				<property name="database" value="SQL_SERVER" />
+				<property name="databasePlatform" value="${hibernate.dialect}" />
+			</bean>
+		</property>
+		<property name="jpaDialect">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
+		</property>
+		<property name="jpaPropertyMap">
+			<map>
+				<entry key="hibernate.ejb.naming_strategy" value="${hibernate.naming_strategy}" />
+				<entry key="hibernate.format_sql" value="${hibernate.format_sql}" />
+				<entry key="hibernate.jdbc.batch_size" value="${hibernate.jdbc.batch_size}" />
+				<entry key="hibernate.hibernate.connection.SetBigStringTryClob"
+					value="${hibernate.hibernate.connection.SetBigStringTryClob}" />
+				<entry key="hibernate.hibernate.archive.autodetection" value="${hibernate.hibernate.archive.autodetection}" />
+				<entry key="hibernate.hibernate.connection.charSet" value="${hibernate.hibernate.connection.charSet}" />
+				<entry key="hibernate.hibernate.cache.use_query_cache" value="${hibernate.hibernate.cache.use_query_cache}" />
+				<entry key="hibernate.hibernate.cache.use_second_level_cache"
+					value="${hibernate.hibernate.cache.use_second_level_cache}" />
+			</map>
+		</property>
+	</bean>
+
+	<jpa:repositories base-package="jp.co.archTest.rest.ps.v1.dao2"
+		transaction-manager-ref="transactionManager2"
+		entity-manager-factory-ref="entityManagerFactoryPRIMEX2" />
+		
+	<bean id="transactionManager2" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactoryPRIMEX2" />
+	</bean>
+	
+	<tx:annotation-driven transaction-manager="transactionManager2"
+		proxy-target-class="true" />
+		
+ 	<bean id="springContextUtil" class="jp.co.archTest.rest.ps.v1.common.SpringContextUtil"
+ 		/>
+
+	<!-- 热机 
+ 	<bean id="initSystemParamListener" class="jp.co.archTest.rest.ps.v1.listener.InitDataListener"
+ 		/>
+-->
+</beans>

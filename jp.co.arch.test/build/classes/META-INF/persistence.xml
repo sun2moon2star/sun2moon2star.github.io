@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence persistence_1_0.xsd"
+    version="1.0">
+
+	<persistence-unit name="v1" transaction-type="RESOURCE_LOCAL">
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		
+		<class>jp.co.toshibatec.primex.v1.entity.ClientInfo</class>
+		<class>jp.co.toshibatec.primex.v1.entity.ClientStatus</class>
+		<class>jp.co.toshibatec.primex.v1.entity.CustomerInfo</class>
+		<class>jp.co.toshibatec.primex.v1.entity.Item</class>
+<!-- 		<class>jp.co.toshibatec.primex.v1.entity.ItemDiscount</class> -->
+<!-- 		<class>jp.co.toshibatec.primex.v1.entity.ItemPK</class> -->
+<!-- 		<class>jp.co.toshibatec.primex.v1.entity.ItemPreset</class> -->
+<!-- 		<class>jp.co.toshibatec.primex.v1.entity.JsonEntityObjectBase</class> -->
+<!-- 		<class>jp.co.toshibatec.primex.v1.entity.PresenterConnectionSetting</class> -->
+		<class>jp.co.toshibatec.primex.v1.entity.Session</class>
+		<class>jp.co.toshibatec.primex.v1.entity.TransactionInfo</class>
+<!-- 		<class>jp.co.toshibatec.primex.v1.entity.SubtotalDiscount</class> -->
+		<class>jp.co.toshibatec.primex.v1.entity.Transaction</class>
+		<class>jp.co.toshibatec.primex.v1.entity.User</class>
+<!-- 		<class>jp.co.toshibatec.primex.v1.entity.DiscountPreset</class> -->
+<!-- 		<class>jp.co.toshibatec.primex.v1.entity.Promotion</class> -->
+
+		<properties>
+			<property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;DatabaseName=navi"	/>
+			<property name="javax.persistence.jdbc.user" value="sa" />
+			<property name="javax.persistence.jdbc.password" value="sa" />
+			<property name="eclipselink.ddl-generation"	value="drop-and-create-tables"/>
+			<property name="eclipselink.logging.level.sql"	value="FINE"/> 
+			<property name="eclipselink.logging.parameters" value="true"/>
+		
+ 			<!-- Derby組み込みモード --> 
+<!-- 			<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/> -->
+<!-- 			<property name="javax.persistence.jdbc.url" value="jdbc:derby:C:\pleiades\4.7\DB\MyDB;create=true"	/> -->
+<!-- 			<property name="javax.persistence.jdbc.user" value="APP" /> -->
+<!-- 			<property name="javax.persistence.jdbc.password" value="APP" /> -->
+<!-- 			<property name="eclipselink.ddl-generation"	value="drop-and-create-tables"/> -->
+<!-- 			<property name="eclipselink.logging.level.sql"	value="FINE"/> <property name="eclipselink.logging.parameters" value="true"/> -->
+
+			<!-- Derbyネットワークモード -->
+<!-- 			<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver" /> -->
+<!-- 			<property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost/TestDB;create=true" /> -->
+<!-- 			<property name="javax.persistence.jdbc.user" value="APP" /> -->
+<!-- 			<property name="javax.persistence.jdbc.password" value="APP" /> -->
+<!-- 			<property name="eclipselink.ddl-generation" value="create-or-extend-tables" /> -->
+<!-- 			<property name="eclipselink.ddl-generation" value="drop-and-create-tables" /> -->
+<!-- 			<property name="eclipselink.logging.level.sql" value="FINE" /> -->
+<!-- 			<property name="eclipselink.logging.parameters" value="true" /> -->
+
+			<!-- SQLite(ALTER TABLEでのADD CONSTRAINTに対応していないため使えない) -->
+			<!-- <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC"
+				/> <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:C:\pleiades\4.7\DB\MySQLiteDB"
+				/> <property name="javax.persistence.jdbc.user" value="tecsys" /> <property
+				name="javax.persistence.jdbc.password" value="tecsys" /> <property name="eclipselink.ddl-generation"
+				value="drop-and-create-tables"/> <property name="eclipselink.logging.level.sql"
+				value="FINE"/> <property name="eclipselink.logging.parameters" value="true"/> -->
+
+		</properties>
+	</persistence-unit>
+
+	<persistence-unit name="proto" transaction-type="RESOURCE_LOCAL">
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+<!-- 		<class>jp.co.toshibatec.primex.proto.bean.entity.ClientInfo</class> -->
+<!-- 		<class>jp.co.toshibatec.primex.proto.bean.entity.ClientStatus</class> -->
+<!-- 		<class>jp.co.toshibatec.primex.proto.bean.entity.CustomerInfo</class> -->
+<!-- 		<class>jp.co.toshibatec.primex.proto.bean.entity.Item</class> -->
+<!-- 		<class>jp.co.toshibatec.primex.proto.bean.entity.ItemDiscount</class> -->
+<!-- 		<class>jp.co.toshibatec.primex.proto.bean.entity.ItemPK</class> -->
+<!-- 		<class>jp.co.toshibatec.primex.proto.bean.entity.ItemPreset</class> -->
+<!-- 		<class>jp.co.toshibatec.primex.proto.bean.entity.JsonEntityObjectBase</class> -->
+<!-- 		<class>jp.co.toshibatec.primex.proto.bean.entity.PresenterConnectionSetting</class> -->
+<!-- 		<class>jp.co.toshibatec.primex.proto.bean.entity.Session</class> -->
+<!-- 		<class>jp.co.toshibatec.primex.proto.bean.entity.TransactionInfo</class> -->
+<!-- 		<class>jp.co.toshibatec.primex.proto.bean.entity.SubtotalDiscount</class> -->
+<!-- 		<class>jp.co.toshibatec.primex.proto.bean.entity.Transaction</class> -->
+<!-- 		<class>jp.co.toshibatec.primex.proto.bean.entity.User</class> -->
+<!-- 		<class>jp.co.toshibatec.primex.proto.bean.entity.DiscountPreset</class> -->
+<!-- 		<class>jp.co.toshibatec.primex.proto.bean.entity.Promotion</class> -->
+		<properties>
+
+			<property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;DatabaseName=navi"	/>
+			<property name="javax.persistence.jdbc.user" value="sa" />
+			<property name="javax.persistence.jdbc.password" value="sa" />
+			<property name="eclipselink.ddl-generation"	value="drop-and-create-tables"/>
+			<property name="eclipselink.logging.level.sql"	value="FINE"/> 
+			<property name="eclipselink.logging.parameters" value="true"/>
+		
+		
+			<!-- Derby組み込みモード -->
+<!-- 			<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/> -->
+<!-- 			<property name="javax.persistence.jdbc.url" value="jdbc:derby:C:\primex\DB\PrimeXDB;create=true"/> -->
+<!-- 			<property name="javax.persistence.jdbc.user" value="PROTO" /> -->
+<!-- 			<property name="javax.persistence.jdbc.password" value="PROTO" /> -->
+<!-- 			<property name="eclipselink.ddl-generation" value="drop-and-create-tables"/> -->
+<!-- 			<property name="eclipselink.logging.level.sql" value="FINE"/> -->
+<!-- 			<property name="eclipselink.logging.parameters" value="true"/> -->
+
+			<!-- Derbyネットワークモード -->
+<!-- 			<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver" /> -->
+<!-- 			<property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost/TestDB;create=true" /> -->
+<!-- 			<property name="javax.persistence.jdbc.user" value="PROTO" /> -->
+<!-- 			<property name="javax.persistence.jdbc.password" value="PROTO" /> -->
+<!--  			<property name="eclipselink.ddl-generation" value="create-or-extend-tables" /> -->
+<!-- 			<property name="eclipselink.ddl-generation" value="drop-and-create-tables" /> -->
+<!-- 			<property name="eclipselink.logging.level.sql" value="FINE" /> -->
+<!-- 			<property name="eclipselink.logging.parameters" value="true" /> -->
+
+		</properties>
+	</persistence-unit>
+</persistence>
+
+<!--
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence persistence_1_0.xsd"
+    version="1.0">
+
+    <persistence-unit name="my-app" transaction-type="RESOURCE_LOCAL">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:C:\pleiades\4.7\DB\MySQLiteDB" />
+            <property name="javax.persistence.jdbc.user" value="tecsys" />
+            <property name="javax.persistence.jdbc.password" value="tecsys" />
+            <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
+            <property name="eclipselink.logging.level.sql" value="FINE"/>
+      		<property name="eclipselink.logging.parameters" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>
+-->

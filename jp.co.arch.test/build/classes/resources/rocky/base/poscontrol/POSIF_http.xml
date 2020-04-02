@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="shift_jis"?>
+<!-- ============================================================ -->
+<!-- FILE ID  : POSIF_http.xml                                    -->
+<!-- FILE NAME: HTTP用通信クライアント設定ファイル                -->
+<!-- 変更履歴                                                     -->
+<!-- 2008/02/27 新規作成                                          -->
+<!-- 2011/09/21 コマンド番号：8128を追加                          -->
+<!-- ============================================================ -->
+<!--通信クライアント 接続先設定ファイル -->
+<httpnetworkclient>
+    <!-- httpクライアント用接続先設定 -->
+    <!-- datatype設定 -->
+    <services>
+        <!-- datatype HTTPヘッダ情報設定                            -->
+        <!--  通信時のパラメータを設定する                          -->
+        <!--   要素名         :送信処理種別                         -->
+        <!-- 必須設定情報                                           -->
+        <!--   type        :業務にあわせたデータフォーマットタイプ  -->
+        <!--   command     :HTTPコマンドNo                        -->
+        <!--               (集信：get　配信：put コントロール：ctl) -->
+        <!--   filename    :集配信ファイル名(commandがctlなら0x00)  -->
+        <!--   url           :サーブレット名称                      -->
+        <!--   protocol    :httpもしくはhttps                       -->
+        <!--   method     :サーブレッドアクセスメソッド             -->
+
+            
+        <P8101 type="post" command="8101" filename=""
+            url="/control.pmh" protocol="http" method="post"
+            hostname="localhost" port="80" timeout="600000" />
+
+        <P8119 type="post" command="8119" filename=""
+            url="/control.pmh" protocol="http" method="post"
+            hostname="localhost" port="80" timeout="600000" />
+
+    </services>
+</httpnetworkclient>

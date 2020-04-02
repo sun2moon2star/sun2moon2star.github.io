@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration package="log4j.test" status="WARN">
+
+	<Properties>
+		<Property name="log-path">C:\primex\log</Property>
+	</Properties>
+
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%d{yyyy/MM/dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n%ex" />
+		</Console>
+
+		<RollingFile name="RollingFile" fileName="${log-path}/application.log"
+			filePattern="${log-path}/application-%d{yyyy-MM-dd}-%i.log">
+			<PatternLayout>
+				<pattern>%d{yyyy/MMM/dd HH:mm:ss.SSS}  %c{1}: %m%n</pattern>
+			</PatternLayout>
+			<Policies>
+				<OnStartupTriggeringPolicy />
+			</Policies>
+		</RollingFile>
+		<RollingFile name="Test" fileName="${log-path}/Test.log"
+			filePattern="${log-path}/Test-%d{yyyy-MM-dd}-%i.log">
+			<PatternLayout>
+				<pattern>%d{dd/MMM/yyyy HH:mm:ss,SSS}- %c{1}: %m%n</pattern>
+			</PatternLayout>
+			<Policies>
+				<OnStartupTriggeringPolicy />
+			</Policies>
+		</RollingFile>
+	</Appenders>
+
+	<Loggers>
+		<Root level="info">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="RollingFile" />
+		</Root>
+		<Logger name="test" level="trace" additivity="false">
+			<AppenderRef ref="Console" />
+		</Logger>
+		<Logger name="EventLogger" level="info">
+			<AppenderRef ref="Audit" />
+		</Logger>
+	</Loggers>
+</Configuration>
